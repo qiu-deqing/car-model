@@ -1,26 +1,40 @@
-'use strict';
+var Koa = require('koa')
+var bodyParser  = require('koa-bodyparser')
+var cors = require('koa-cors')
+var path = require('path')
+var views = require('koa-views')
+var serve = require('koa-static')
+const Sequelize = require('sequelize')
+const config = require('./config')
+const carController = require('./controllers/car')
+const indexController = require('./controllers/index')
 
-import Koa from 'koa';
-import baseconfig from './config/base';
-import middleware from './middleware';
-import routes from './routes';
-import config from './config/config';
-import log4js from 'log4js';
-
-const app = new Koa();
-const LOG = log4js.getLogger('file')
+require('./lib/helper')()
 
 
-//configure basic app
-baseconfig(app)
+var sequelize = new Sequelize(config.database, config.username, config.password, {
+  host: config.host,
+  dialect: 'mysql',
+  pool: {
+    max: 5,
+    min: 0,
+    idle: 30000
+  }
+})
 
-//configure custom middleware
-app.use(middleware())
+const app = new Koa()
 
-//configure custom routes
-app.use(routes())
+app.use(cors())
 
-app.listen(config.app.port);
-LOG.info("Server started, listening on port: " + config.app.port);
+app.use(views(__dirname + '/views', {
+  map: {
+    html: 'nunjucks'
+  }
+}))
+app.use(bodyParser())
+  .use(indexController.routes())
+  .use(carController.routes())
 
-export default app
+app.use(serve(__dirname + '/public/assets'))
+
+module.exports =  app

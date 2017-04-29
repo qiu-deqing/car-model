@@ -1,60 +1,30 @@
-var webpack = require('webpack');
-var UglifyJsPlugin = webpack.optimize.UglifyJsPlugin;
-var path = require('path');
+const path = require('path')
+
+const HtmlWebpackPlugin = require('html-webpack-plugin')
+const HtmlWebpackPluginConfig = new HtmlWebpackPlugin({
+  template: './app/index.html',
+  filename: 'index.html',
+  inject: 'body'
+})
 
 module.exports = {
-  devtool: 'cheap-module-eval-source-map',
-  entry: {
-      
-    main : [
-      'webpack-hot-middleware/client?http:localhost:9000',
-      'webpack/hot/only-dev-server',
-      './app/index'
-    ],
-    vendor : [
-      'react',
-      'redux',
-      'react-redux',
-      'react-dom',
-      'jquery',
-      'whatwg-fetch',
-    ]
-  },
+  entry: './app/index.js',
   output: {
-    publicPath: "http://0.0.0.0:9000/assets/",
-    path: path.join(__dirname, 'src/public/assets'),
-    filename: '[name].js'
+    path: path.resolve('./src/public/assets'),
+    filename: 'index_bundle.js',
   },
-  plugins: [
-    
-     new webpack.optimize.CommonsChunkPlugin('vendor', './vendor.bundle.js'),
-     new webpack.DefinePlugin({
-        "process.env": {
-          NODE_ENV: JSON.stringify("development")
-      }}),
-     new webpack.HotModuleReplacementPlugin()
-  ],
   module: {
     loaders: [
-      {
-        test: /(\.jsx|\.js)$/,
-        loaders: ['babel?presets[]=es2015&presets[]=react'],
-        exclude: /node_modules/,
-        include: __dirname
+      { 
+        test: /\.js$/, 
+        loader: 'babel-loader', 
+        exclude: /node_modules/ 
       },
       {
-        test: /\.(css|less)$/,
-        loader: 'null'
+        test: /\.css$/,
+        use: ['css-loader' ],
       },
-      { test: /\.woff2?$/, loader: 'null' },
-      { test: /\.ttf$/, loader: 'null' },
-      { test: /\.eot$/, loader: 'null' },
-      { test: /\.svg$/, loader: 'null' },
-      { test: /\.(png|jpg|jpeg|gif|webp)$/i, loader: 'url?limit=200' },
-      { test: /\.json$/, loader: 'json' }
     ],
   },
-  resolve: {
-    extensions: ['', '.js', '.jsx'],
-  }
-};
+  plugins: [HtmlWebpackPluginConfig],
+}
