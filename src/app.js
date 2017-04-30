@@ -5,6 +5,8 @@ var path = require('path')
 var views = require('koa-views')
 var serve = require('koa-static')
 const Sequelize = require('sequelize')
+var compress = require('koa-compress')
+
 const config = require('./config')
 const carController = require('./controllers/car')
 const indexController = require('./controllers/index')
