@@ -9,7 +9,9 @@ export default class CarDetail extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
-      car: {}
+      car: {
+        peijians: []
+      }
     }
   }
 
@@ -24,13 +26,9 @@ export default class CarDetail extends React.Component {
 
   render() {
     const { car } = this.state
-    var peijians = []
-    for (var key in car.peijian) {
-      peijians.push({
-        name: key,
-        list: car.peijian[key],
-      })
-    }
+
+    console.log(car)
+    var peijians = car.peijians
 
     return (
       <div>
@@ -74,6 +72,7 @@ export default class CarDetail extends React.Component {
                 <table className="table table-striped">
                   <thead>
                     <tr>
+                      <th>配件ID</th>
                       <th>品牌</th>
                       <th>配件模型</th>
                       <th>名字</th>
@@ -86,7 +85,8 @@ export default class CarDetail extends React.Component {
                   <tbody>
                   {peijian.list.map(item => {
                     return (
-                      <tr key={item.id}>
+                      <tr key={item.peijianId}>
+                        <tb>{item.peijianId}</tb>
                         <td>{item.brand}</td>
                         <td>{item.peijianModel}</td>
                         <td>{item.name}</td>

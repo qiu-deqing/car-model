@@ -19,6 +19,7 @@ export default class CarList extends React.Component {
         manufacturer: '',
         series: '',
         carModel: '',
+        birthYear: '',
         engineOil: '',
         engineType: '',
       },
@@ -32,10 +33,13 @@ export default class CarList extends React.Component {
   }
 
   updateQuery = (fieldName, value) => {
+    var query = Object.assign({}, this.state.query, {
+      [fieldName]: value
+    })
     this.setState({
-      query: {
-        [fieldName]: value,
-      }
+      query,
+    }, () => {
+      this.state
     })
   }
 
@@ -132,6 +136,17 @@ export default class CarList extends React.Component {
               placeholder="车型" 
             />
           </div>
+          <div className="form-group mx-sm-3">
+            <input className="form-control"
+              value={query.birthYear}
+              onChange={e => {
+                this.updateQuery('birthYear', e.target.value)
+              }}
+              placeholder="年份" 
+            />
+          </div>
+
+
           <div className="form-group mx-sm-3">
             <input className="form-control"
               value={query.engineOil}
