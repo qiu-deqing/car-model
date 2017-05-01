@@ -94,8 +94,7 @@ export default class CarDetail extends React.Component {
                         <td>{item.size}</td>
                         <td>{item.peijianProps}</td>
                         <td>
-                          <a href={item.imageUrl} target="_blank">
-                            <img src={item.imageUrl} className="peijian-preview"/>
+                          <a href={item.imageUrl} target="_blank">图片
                           </a>
                         </td>
                       </tr>

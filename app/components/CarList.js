@@ -160,6 +160,7 @@ export default class CarList extends React.Component {
           <table className="table table-striped">
             <thead>
               <tr>
+                <th>车型ID</th>
                 <th>首字母</th>
                 <th>品牌</th>
                 <th>厂商</th>
@@ -175,7 +176,8 @@ export default class CarList extends React.Component {
             <tbody>
               {carList.map(car => {
                 return (
-                  <tr key={car.id}>
+                  <tr key={car.carModelId}>
+                    <tb>{car.carModelId}</tb>
                     <td>{car.initial}</td>
                     <td>{car.brand}</td>
                     <td>{car.manufacturer}</td>
@@ -186,7 +188,7 @@ export default class CarList extends React.Component {
                     <td>{car.engineType}</td>
                     <td>{car.frontTyre}</td>
                     <td>
-                      <a href={`#/car/${car.id}`} target="_blank">查看配件</a>
+                      <a href={`#/car/${car.carModelId}`} target="_blank">查看配件</a>
                     </td>
                   </tr>
                 )

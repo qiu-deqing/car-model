@@ -5,11 +5,13 @@ let {
 
 const api = KoaRouter()
 
+
+
 api.get('/api/car/detail', async (ctx) => {
 
   try {
     if (!ctx.query.id) {
-      throw new Error('汽车id不能为空')
+      throw new Error('车型id不能为空')
     }
     var result = await carService.detail(ctx.query.id)
 

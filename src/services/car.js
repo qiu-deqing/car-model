@@ -67,16 +67,17 @@ module.exports = {
   },
 
 
-  detail: async (id) => {
+  detail: async (carModelId) => {
     var peijianIds = await CarPeijian.findAll({
       attributes: [
         'peijianId'
       ],
       where: {
-        carModelId: id
+        carModelId: carModelId
       }
     })
-    console.log(peijianIds.length)
+
+    
     
     peijianIds = _.toJson(peijianIds)
     peijianIds = _.map(peijianIds, 'peijianId')
@@ -86,7 +87,7 @@ module.exports = {
         exclude,
       },
       where: {
-        id,
+        carModelId: carModelId,
       }
     })
 

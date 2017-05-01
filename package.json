@@ -8,7 +8,7 @@
     "start": "pm2 start index.js",
     "buildfe": "webpack",
     "watchfe": "webpack --progress --colors --watch",
-    "dev": "nodemon --exec npm run start"
+    "dev": "nodemon index.js"
   },
   "repository": {
     "type": "git",
