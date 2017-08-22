@@ -76,7 +76,6 @@ export default class CarDetail extends React.Component {
                       <th>品牌</th>
                       <th>配件模型</th>
                       <th>名字</th>
-                      <th>参考价格</th>
                       <th>尺寸</th>
                       <th>属性</th>
                       <th>预览</th>
@@ -90,7 +89,6 @@ export default class CarDetail extends React.Component {
                         <td>{item.brand}</td>
                         <td>{item.peijianModel}</td>
                         <td>{item.name}</td>
-                        <td>{item.price}</td>
                         <td>{item.size}</td>
                         <td>{item.peijianProps}</td>
                         <td>
